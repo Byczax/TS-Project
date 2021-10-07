@@ -1,0 +1,263 @@
+%!TEX program = xelatex
+%Template created by: Maciej Byczko
+\documentclass[a4paper,12pt]{extarticle}  %typ dokumentu
+
+\usepackage{geometry} %poprawienie marginesów
+\usepackage{polski} %polskie znaki
+\usepackage{graphicx} %grafiki
+\usepackage{float} %poprawienie pozycji
+\usepackage{fancyhdr} % header i footer
+\usepackage{hyperref} %tworzenie odnośników, \url{<url>}, \href{<file path, link>}{<text with link>} \pageref{}
+\usepackage{bigstrut}
+\usepackage{slashbox}
+% \usepackage{tocbibind}
+\graphicspath{{pictures/}}
+\geometry{margin=0.7in}
+\pagestyle{fancy}
+\cfoot{Strona \thepage}
+\rhead{Strona \thepage}
+\lhead{\typdoc}
+\setlength{\headheight}{15pt}
+
+%Ustawienie paczki hyperref
+\hypersetup{
+     colorlinks,
+     citecolor=black,
+     filecolor=black,
+     linkcolor=black,
+     urlcolor=black
+}
+
+
+\title{\tytul \\ \small{\opis}}
+\author{\tworcy}
+\date{\data}
+
+%-----------------------SEKCJA DANYCH----------------------------------
+\def\tytul{Technologie Sieciowe - Projekt} %<<< tytuł ćwiczenia
+\def\nrcw{} %<<< numer ćwiczenia
+\def\data{\today \\ \small{\zajinfo}} %<< data wykonania
+\def\prowadzacy{Prowadzący: dr. inż Arkadiusz Grzybowski} %<<<prowadzący
+\def\nrgrupy{} %<<<numer grupy
+\def\tworcy{Autorzy:\\Karol Baraniecki (252726)\\Maciej Byczko(252747)} %<<< autorzy
+\def\zajinfo{PN 14:00 TP\\ Politechnika Wrocławska\\Wydział Informatyki i Telekomunikacji} %<<< informacje dotyczące zajęć
+\def\typdoc{} %<<< typ dokumentu tj Sprawozdanie, zadania itp. {Matematyka dyskretna/Sprawozdanie z Miernictwa}
+\def\opis{\prowadzacy} %<<< opis który będzie umieszczony pod tytułem w Maketitle
+%----------------------------------------------------------------------
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+\listoftables
+\cleardoublepage
+\section{Wstęp}
+Celem projektu jest zaprojektowanie lokalnej sieci komputerowej dla firmy programistycznej znajdującej się we Wrocławiu.
+Sieć musi zostać zaprojektowana zgodnie ze sprecyzowanymi wymaganiami firmy oraz uwzględniać jej przyszły rozwój.
+\subsection{Kadra firmy}
+
+W personel firmy składa się z następujących użytkowników:
+\begin{itemize}\label{itemize:kadra}
+	\item Programiści
+	\item Testerzy
+	\item Projektanci
+	\item Marketing
+	\item Księgowość
+\end{itemize}
+
+\subsection{Opis siedziby firmy}
+Przedsiębiorstwo składa się z dwóch budynków: dwupiętrowego oraz trzypiętrowego.
+W budynkach znajduje się także odpowiednie wyposażenie (serwery,  drukarki,
+komputery,  kamery  IP,  itp.).
+Firma posiada jeden główny punkt dystrybucyjny (MDF) oraz punkty pośrednie (IDF) w każdym z budynków.
+\subsection{Wymagania}
+Firma wymaga od nas aby:
+\begin{itemize}
+	\item Użyta technologia była z rodziny Ethernet,
+	\item na wskazanym piętrze każdego budynku ma być dostępna sieć bezprzewodowa (niezbędna instalacja
+	      kablowa jest przygotowana),
+	\item należy zapewnić dodatkowe porty na przełącznikach (w liczbie 20\% zajętych portów), w związku z
+	      przewidywanym wzrostem liczby pracowników (w pomieszczeniach są już zainstalowane
+	      dodatkowe gniazda sieciowe),
+	\item ruch w ramach grup roboczych ma być separowany z wykorzystaniem sieci VLAN,
+	\item należy  zapewnić  dwa  podłączenia  do  Internetu:  podstawowe  oraz  zapasowe,  o  przepustowości
+	      adekwatnej do potrzeb przedsiębiorstwa,
+	\item podstawowe  łącze  internetowe  ma  zapewniać  gwarancję  minimalnej  przepustowości  równej  co
+	      najmniej 40\% średniego przewidywanego przepływu na tym łączu,
+	\item kosztorys ma uwzględniać koszt wszystkich urządzeń, podłączenia do Internetu i koszt korzystania z
+	      łączy Internetowych w okresie 2 lat
+\end{itemize}
+
+
+%!=========ETAP 2=============
+
+
+\section{Inwentaryzacja zasobów}
+\subsection{Pracownicy}
+Pracowników można podzielić na 5 grup roboczych (Patrz \underline{\nameref{itemize:kadra}}).
+Każdy z pracowników posiada dostęp do stanowiska pracy na którym znajduje się urządzenie wymagające podłączenia do sieci (w naszym przypadku każdy użytkownik posiada komputer)
+
+\subsubsection{Tabele podziału pracowników}
+\begin{table}[H]
+	\centering
+	\caption{Podział użytkowników na grupy robocze, budynki oraz piętra}
+	\vspace{2mm}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\cline{2-6}    \multicolumn{1}{c|}{} & \multicolumn{5}{c|}{\textbf{Liczba użytkowników (komputerów)}} \bigstrut                                                                                                                           \\
+			\cline{2-6}    \multicolumn{1}{c|}{} & \multicolumn{2}{c|}{\textbf{Budynek 1}}                                  & \multicolumn{3}{c|}{\textbf{Budynek 2}} \bigstrut                                                                       \\\hline
+			\textbf{Grupa robocza}               & \textbf{Piętro 1}                                                        & \textbf{Piętro 2}                                 & \textbf{Piętro 1} & \textbf{Piętro 2} & \textbf{Piętro 3} \bigstrut \\\hline
+			\textbf{Programiści}                 & 22                                                                       & 6                                                 & 2                 & 19                & 36 \bigstrut                \\\hline
+			\textbf{Testerzy}                    & 21                                                                       & 31                                                & 6                 & 13                & 33 \bigstrut                \\\hline
+			\textbf{Projektanci}                 & 6                                                                        & 31                                                & 18                & 1                 & 14 \bigstrut                \\\hline
+			\textbf{Marketing}                   & 16                                                                       & 28                                                & 7                 & 3                 & 17 \bigstrut                \\\hline
+			\textbf{Księgowość}                  & 32                                                                       & 14                                                & 32                & 21                & 15 \bigstrut                \\\hline
+		\end{tabular}%
+	}
+	\label{tab:groups}%
+\end{table}%
+
+\begin{table}[H]
+	\centering
+	\caption{Suma poszczególnych pracowników w firmie wraz z podziałem na grupy robocze}
+	\vspace{2mm}
+	\begin{tabular}{|c|r|}\hline
+		\textbf{Grupa robocza}               & \multicolumn{1}{l|}{\textbf{Suma}} \bigstrut \\\hline
+		\textbf{Programiści}                 & 85 \bigstrut                                 \\\hline
+		\textbf{Testerzy}                    & 104 \bigstrut                                \\\hline
+		\textbf{Projektanci}                 & 70 \bigstrut                                 \\\hline
+		\textbf{Marketing}                   & 71 \bigstrut                                 \\\hline
+		\textbf{Księgowość}                  & 114 \bigstrut                                \\\hline
+		\textbf{Liczba drukarek}             & 12 \bigstrut                                 \\\hline
+		\textbf{Suma wszystkich pracowników} & 444 \bigstrut                                \\\hline
+	\end{tabular}%
+	\label{tab:groups_sum}%
+\end{table}%
+
+\subsection{Sprzęt}
+Firma jest wyposażona w trzy rodzaje sprzętu:
+\begin{itemize}
+	\item drukarki
+	\item punkty dostępowe WiFi
+	\item urządzenia bezprzewodowe
+\end{itemize}
+Sprzęty te będą używane w sieci lokalnej firmy.
+\subsubsection{Tabele podziału urządzeń wspólnych}
+\begin{table}[H]
+	\centering
+	\caption{Podział urządzeń na budynki oraz piętra}
+	\vspace{2mm}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\cline{2-6}    \multicolumn{1}{c|}{}     & \multicolumn{5}{c|}{\textbf{Liczba urządzeń}} \bigstrut                                                                                                                           \\
+			\cline{2-6}    \multicolumn{1}{c|}{}     & \multicolumn{2}{c|}{\textbf{Budynek 1}}                 & \multicolumn{3}{c|}{\textbf{Budynek 2}} \bigstrut                                                                       \\\hline
+			\textbf{Urządzenia}                      & \textbf{Piętro 1}                                       & \textbf{Piętro 2}                                 & \textbf{Piętro 1} & \textbf{Piętro 2} & \textbf{Piętro 3} \bigstrut \\\hline                                                                  & 14                                                & 32                & 21                & 15 \bigstrut                \\\hline
+			\textbf{Liczba drukarek}                 & 1                                                       & 2                                                 & 3                 & 3                 & 3 \bigstrut                 \\\hline
+			\textbf{Liczba punktów dostępowych WiFi} & 0                                                       & 0                                                 & 1                 & 0                 & 3 \bigstrut                 \\\hline
+			\textbf{Liczba urządzeń bezprzewodowych} & 0                                                       & 0                                                 & 6                 & 0                 & 17 \bigstrut                \\\hline
+		\end{tabular}%
+	}
+	\label{tab:devices}%
+\end{table}%
+
+\begin{table}[H]
+	\centering
+	\caption{Suma poszczególnych urządzeń w firmie}
+	\vspace{2mm}
+	\begin{tabular}{|c|r|}\hline
+		\textbf{Urządzenia}                      & \multicolumn{1}{l|}{\textbf{Suma}} \bigstrut \\\hline
+		\textbf{Liczba drukarek}                 & 12 \bigstrut                                 \\\hline
+		\textbf{Liczba punktów dostępowych WiFi} & 4 \bigstrut                                  \\\hline
+		\textbf{Liczba urządzeń bezprzewodowych} & 23 \bigstrut                                 \\\hline
+		\textbf{Suma wszystkich urządzeń}        & 39 \bigstrut                                 \\\hline
+	\end{tabular}%
+	\label{tab:devices_sum}%
+\end{table}%
+
+\subsubsection{Wymagania przepływowe pomiędzy pracownikami a serwerami lokalnymi}
+
+\begin{table}[H]
+	\centering
+	\caption{Wymagania dotyczące przepływów lokalnych (na jednego użytkownika)}
+	\vspace{2mm}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{|c|c|c|c|}
+			\cline{2-4}    \multicolumn{1}{c|}{}       & \multicolumn{3}{c|}{\textbf{Transfer do serwerów lokalnych i drukarek (down \textbackslash{} up) [kb/s]}} \bigstrut                                                            \\\hline
+			\textbf{\backslashbox{Grupa rob.}{Serwer}} & \textbf{Serwer1}                                                                                                    & \textbf{Serwer2}       & \textbf{Drukarka} \bigstrut     \\\hline
+			\textbf{Programiści}                       & 0\textbackslash{}0                                                                                                  & 750\textbackslash{}700 & 10\textbackslash{}120 \bigstrut \\\hline
+			\textbf{Testerzy}                          & 700\textbackslash{}350                                                                                              & 450\textbackslash{}100 & 10\textbackslash{}130 \bigstrut \\\hline
+			\textbf{Projektanci}                       & 0\textbackslash{}0                                                                                                  & 350\textbackslash{}200 & 10\textbackslash{}190 \bigstrut \\\hline
+			\textbf{Marketing}                         & 150\textbackslash{}200                                                                                              & 0\textbackslash{}0     & 10\textbackslash{}140 \bigstrut \\\hline
+			\textbf{Księgowość}                        & 0\textbackslash{}0                                                                                                  & 450\textbackslash{}250 & 10\textbackslash{}130 \bigstrut \\\hline
+			\textbf{WiFi}                              & 50\textbackslash{}250                                                                                               & 100\textbackslash{}250 & 10\textbackslash{}120 \bigstrut \\\hline
+		\end{tabular}%
+	}
+	\label{tab:usage}%
+\end{table}%
+\subsubsection{Serwery}
+
+\begin{table}[H]
+	\centering
+	\caption{Prognozowany ruch do internetu}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{|c|c|c|c|}
+			\cline{2-4}    \multicolumn{1}{c|}{} & \multicolumn{3}{c|}{\textbf{Transfer do\textbackslash{}z Internetu na jedną sesję (internautę) [kb/s] }} \bigstrut                                                                        \\\hline
+			\textbf{Serwery internetowe}         & \textbf{Do Internetu}                                                                                              & \textbf{Z Internetu} & \textbf{Liczba jednoczesnych sesji} \bigstrut \\\hline
+			\textbf{Serwer WWW}                  & 50                                                                                                                 & 15                   & 49 \bigstrut                                  \\\hline
+			\textbf{Serwer FTP}                  & 210                                                                                                                & 90                   & 4 \bigstrut                                   \\\hline
+		\end{tabular}%
+	}
+	\label{tab:www_traffic}%
+\end{table}%
+\subsection{Aplikacje}
+
+\begin{table}[H]
+	\centering
+	\caption{Wymagania dotyczące przepływu przez aplikacje}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{|c|c|c|c|c|c|}\hline
+			\multicolumn{6}{|c|}{\textbf{Transfer z/do Internetu (down \textbackslash{} up) [kb/s]}} \bigstrut                                                                               \\\hline
+			\textbf{\backslashbox{Grupa rob.}{Aplikacja}} & \textbf{Przeglądarka} & \textbf{Wideokonferencja} & \textbf{VoIP}        & \textbf{Klient\_FTP} & \textbf{Komunikator} \bigstrut \\\hline
+			\textbf{Programiści}                          & 0\textbackslash{}0    & 0\textbackslash{}0        & 20\textbackslash{}20 & 77\textbackslash{}18 & 15\textbackslash{}15 \bigstrut \\\hline
+			\textbf{Testerzy}                             & 0\textbackslash{}0    & 40\textbackslash{}40      & 0\textbackslash{}0   & 0\textbackslash{}0   & 15\textbackslash{}15 \bigstrut \\\hline
+			\textbf{Projektanci}                          & 65\textbackslash{}10  & 0\textbackslash{}0        & 20\textbackslash{}20 & 45\textbackslash{}11 & 15\textbackslash{}15 \bigstrut \\\hline
+			\textbf{Marketing}                            & 60\textbackslash{}10  & 40\textbackslash{}40      & 20\textbackslash{}20 & 0\textbackslash{}0   & 15\textbackslash{}15 \bigstrut \\\hline
+			\textbf{Księgowość}                           & 35\textbackslash{}10  & 40\textbackslash{}40      & 20\textbackslash{}20 & 0\textbackslash{}0   & 0\textbackslash{}0 \bigstrut   \\\hline
+			\textbf{WiFi}                                 & 78\textbackslash{}10  & 40\textbackslash{}40      & 20\textbackslash{}20 & 49\textbackslash{}14 & 15\textbackslash{}15 \bigstrut \\\hline
+		\end{tabular}%
+	}
+	\label{tab:apps}%
+\end{table}%
+\subsection{Punkty dystrybucyjne}
+
+\begin{table}[H]
+	\centering
+	\caption{Punkty dystrybucyjne}
+	\resizebox{\textwidth}{!}{
+	  \begin{tabular}{|c|c|c|}
+	  \hline
+	  \multicolumn{3}{|c|}{\textbf{Punkty dystrybucyjne}} \bigstrut\\
+	  \hline
+	  \textbf{Oznaczenie} & \textbf{Lokalizacja} & \textbf{Podłączone punkty abonenckie} \bigstrut\\
+	  \hline
+	  \textbf{MDF} & Bud. 2, Piętro 2 & Bud. 2, Piętro 2,1, \bigstrut\\
+	  \hline
+	  \textbf{IDF1} & Bud. 2, Piętro 3 & Bud. 2, Piętro 3, \bigstrut\\
+	  \hline
+	  \textbf{IDF2} & Bud. 1, Piętro 1 & Bud. 1 \bigstrut\\
+	  \hline
+	  \end{tabular}%
+	}
+	\label{tab:distribution}%
+  \end{table}%
+
+\section{Analiza potrzeb użytkowników}
+\subsection{Pracownicy oraz wykorzystywane oprogramowanie}
+\subsection{Łącza szkieletowe}
+\subsection{Łącza do serwerów i drukarek}
+\subsection{Łącza do internetu}
+\section{Założenia projektowe}
+\subsection{Sieć LAN}
+\subsection{Łącze do internetu}
+\subsection{Zabezpieczenia sieci}
+\end{document}
