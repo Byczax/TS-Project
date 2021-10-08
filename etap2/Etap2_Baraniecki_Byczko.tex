@@ -5,11 +5,13 @@
 \usepackage{geometry} %poprawienie marginesów
 \usepackage{polski} %polskie znaki
 \usepackage{graphicx} %grafiki
+\usepackage{multirow} % tabele
+\usepackage{bigstrut} % tabele
 \usepackage{float} %poprawienie pozycji
 \usepackage{fancyhdr} % header i footer
 \usepackage{hyperref} %tworzenie odnośników, \url{<url>}, \href{<file path, link>}{<text with link>} \pageref{}
-\usepackage{bigstrut}
 \usepackage{slashbox}
+% \usepackage{multirow}
 % \usepackage{tocbibind}
 \graphicspath{{pictures/}}
 \geometry{margin=0.7in}
@@ -151,7 +153,7 @@ Sprzęty te będą używane w sieci lokalnej firmy.
 		\begin{tabular}{|c|c|c|c|c|c|}
 			\cline{2-6}    \multicolumn{1}{c|}{}     & \multicolumn{5}{c|}{\textbf{Liczba urządzeń}} \bigstrut                                                                                                                           \\
 			\cline{2-6}    \multicolumn{1}{c|}{}     & \multicolumn{2}{c|}{\textbf{Budynek 1}}                 & \multicolumn{3}{c|}{\textbf{Budynek 2}} \bigstrut                                                                       \\\hline
-			\textbf{Urządzenia}                      & \textbf{Piętro 1}                                       & \textbf{Piętro 2}                                 & \textbf{Piętro 1} & \textbf{Piętro 2} & \textbf{Piętro 3} \bigstrut \\\hline                                                                  & 14                                                & 32                & 21                & 15 \bigstrut                \\\hline
+			\textbf{Urządzenia}                      & \textbf{Piętro 1}                                       & \textbf{Piętro 2}                                 & \textbf{Piętro 1} & \textbf{Piętro 2} & \textbf{Piętro 3} \bigstrut \\\hline
 			\textbf{Liczba drukarek}                 & 1                                                       & 2                                                 & 3                 & 3                 & 3 \bigstrut                 \\\hline
 			\textbf{Liczba punktów dostępowych WiFi} & 0                                                       & 0                                                 & 1                 & 0                 & 3 \bigstrut                 \\\hline
 			\textbf{Liczba urządzeń bezprzewodowych} & 0                                                       & 0                                                 & 6                 & 0                 & 17 \bigstrut                \\\hline
@@ -176,6 +178,88 @@ Sprzęty te będą używane w sieci lokalnej firmy.
 
 \subsubsection{Wymagania przepływowe pomiędzy pracownikami a serwerami lokalnymi}
 
+
+\subsubsection{Serwery}
+Firma posiada dwa serwery lokalne. Serwer lokalny 1 jest używany przez:
+\begin{itemize}
+	\item Testerów,
+	\item Marketing,
+	\item WiFi
+\end{itemize}
+Serwer lokalny 2 jest używany przez każdą grupę roboczą z wyłączeniem zespołu Marketingu.
+\begin{table}[H]
+	\centering
+	\caption{Prognozowany ruch do internetu}
+	\vspace{2mm}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{|c|c|c|c|}
+			\cline{2-4}    \multicolumn{1}{c|}{} & \multicolumn{3}{c|}{\textbf{Transfer do\textbackslash{}z Internetu na jedną sesję (internautę) [kb/s] }} \bigstrut                                                                        \\\hline
+			\textbf{Serwery internetowe}         & \textbf{Do Internetu}                                                                                              & \textbf{Z Internetu} & \textbf{Liczba jednoczesnych sesji} \bigstrut \\\hline
+			\textbf{Serwer WWW}                  & 50                                                                                                                 & 15                   & 49 \bigstrut                                  \\\hline
+			\textbf{Serwer FTP}                  & 210                                                                                                                & 90                   & 4 \bigstrut                                   \\\hline
+		\end{tabular}%
+	}
+	\label{tab:www_traffic}%
+\end{table}%
+\subsection{Aplikacje}
+Dla każdej grupy użytkowników został zdefiniowany również przepływ do i z internetu z podziałem na poszczególne typy aplikacji, firma zapewnia również dostęp do sieci WiFi.
+\begin{table}[H]
+	\centering
+	\caption{Wymagania dotyczące przepływu przez aplikacje}
+	\vspace{2mm}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{|c|c|c|c|c|c|}\hline
+			\multicolumn{6}{|c|}{\textbf{Transfer z/do Internetu (down \textbackslash{} up) [kb/s]}} \bigstrut                                                                               \\\hline
+			\textbf{\backslashbox{Grupa rob.}{Aplikacja}} & \textbf{Przeglądarka} & \textbf{Wideokonferencja} & \textbf{VoIP}        & \textbf{Klient\_FTP} & \textbf{Komunikator} \bigstrut \\\hline
+			\textbf{Programiści}                          & 0\textbackslash{}0    & 0\textbackslash{}0        & 20\textbackslash{}20 & 77\textbackslash{}18 & 15\textbackslash{}15 \bigstrut \\\hline
+			\textbf{Testerzy}                             & 0\textbackslash{}0    & 40\textbackslash{}40      & 0\textbackslash{}0   & 0\textbackslash{}0   & 15\textbackslash{}15 \bigstrut \\\hline
+			\textbf{Projektanci}                          & 65\textbackslash{}10  & 0\textbackslash{}0        & 20\textbackslash{}20 & 45\textbackslash{}11 & 15\textbackslash{}15 \bigstrut \\\hline
+			\textbf{Marketing}                            & 60\textbackslash{}10  & 40\textbackslash{}40      & 20\textbackslash{}20 & 0\textbackslash{}0   & 15\textbackslash{}15 \bigstrut \\\hline
+			\textbf{Księgowość}                           & 35\textbackslash{}10  & 40\textbackslash{}40      & 20\textbackslash{}20 & 0\textbackslash{}0   & 0\textbackslash{}0 \bigstrut   \\\hline
+			\textbf{WiFi}                                 & 78\textbackslash{}10  & 40\textbackslash{}40      & 20\textbackslash{}20 & 49\textbackslash{}14 & 15\textbackslash{}15 \bigstrut \\\hline
+		\end{tabular}%
+	}
+	\label{tab:apps}%
+\end{table}%
+
+%? nie wiem gdzie to wykorzystać
+% \subsection{Punkty dystrybucyjne}
+% \begin{table}[H]
+% 	\centering
+% 	\caption{Punkty dystrybucyjne}
+% 	\resizebox{\textwidth}{!}{
+% 		\begin{tabular}{|c|c|c|}
+% 			\hline
+% 			\multicolumn{3}{|c|}{\textbf{Punkty dystrybucyjne}} \bigstrut                                \\
+% 			\hline
+% 			\textbf{Oznaczenie} & \textbf{Lokalizacja} & \textbf{Podłączone punkty abonenckie} \bigstrut \\
+% 			\hline
+% 			\textbf{MDF}        & Bud. 2, Piętro 2     & Bud. 2, Piętro 2,1, \bigstrut                   \\
+% 			\hline
+% 			\textbf{IDF1}       & Bud. 2, Piętro 3     & Bud. 2, Piętro 3, \bigstrut                     \\
+% 			\hline
+% 			\textbf{IDF2}       & Bud. 1, Piętro 1     & Bud. 1 \bigstrut                                \\
+% 			\hline
+% 		\end{tabular}%
+% 	}
+% 	\label{tab:distribution}%
+% \end{table}%
+
+\section{Analiza potrzeb użytkowników}
+\subsection{Pracownicy oraz wykorzystywane oprogramowanie}
+W zależności od typu stanowiska wymagana jest różna jakość usług sieciowych. Jest to związane z tym że wykorzystywane jest różne oprogramowanie. Każda aplikacja działa w sposób indywidualny, niektóre wymagają bardzo stabilnego łącza, bądź bezpieczeństwa połączenia.
+Na podstawie \underline{\hyperref[tab:usage]{tabeli 7}} można wywnioskować wymagania oraz zużycie każdej grupy roboczej, rozpatrzymy każde stanowisko z osobna:
+\begin{itemize}
+	\item Programiści - wymagają przede wszystkim szybkiego połączenia ze względu na znaczne użycie usługi FTP.
+	\item Testerzy - wymagają szybkiego i niezawodnego łącza ze względu na wideokonferencje.
+	\item Projektanci - wymagają bezpiecznego oraz szybkiego połączenia ze względu na usługę FTP oraz używanie przeglądarki.
+	\item Marketing - wymagają stabilnego łącza ze względu na wideokonferencję, bezpieczeństwo także się przyda ze względu na użycie przeglądarki.
+	\item Księgowość - głównie wymagają stabilnego łącza ze względu na wideokonferencje, używają także przeglądarki więc łącze musi być bezpieczne.
+	      % \item WiFi - oferuje multum usług więc powinno mieć głównie bezpieczeństwo połączenia,  
+\end{itemize}
+
+\subsection{Łącza szkieletowe}
+% \subsection{Łącza do serwerów i drukarek}
 \begin{table}[H]
 	\centering
 	\caption{Wymagania dotyczące przepływów lokalnych (na jednego użytkownika)}
@@ -194,67 +278,111 @@ Sprzęty te będą używane w sieci lokalnej firmy.
 	}
 	\label{tab:usage}%
 \end{table}%
-\subsubsection{Serwery}
+Aby uzyskać szacowane łącza według grup roboczych na jednego użytkownika należy zsumować cały ruch generowany przez jednego użytkownika danej grupy.
+Wyliczenia zostały wykonane na podstawie poprzednich tabel.
 
 \begin{table}[H]
 	\centering
-	\caption{Prognozowany ruch do internetu}
-	\resizebox{\textwidth}{!}{
-		\begin{tabular}{|c|c|c|c|}
-			\cline{2-4}    \multicolumn{1}{c|}{} & \multicolumn{3}{c|}{\textbf{Transfer do\textbackslash{}z Internetu na jedną sesję (internautę) [kb/s] }} \bigstrut                                                                        \\\hline
-			\textbf{Serwery internetowe}         & \textbf{Do Internetu}                                                                                              & \textbf{Z Internetu} & \textbf{Liczba jednoczesnych sesji} \bigstrut \\\hline
-			\textbf{Serwer WWW}                  & 50                                                                                                                 & 15                   & 49 \bigstrut                                  \\\hline
-			\textbf{Serwer FTP}                  & 210                                                                                                                & 90                   & 4 \bigstrut                                   \\\hline
-		\end{tabular}%
-	}
-	\label{tab:www_traffic}%
+	\caption{Szacowane wykorzystywanie łącza przez pojedynczego użytkownika z danych grup roboczych}
+	\vspace{2mm}
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		\multirow{3}[4]{*}{\textbf{Użytkownik}} & \multicolumn{2}{c|}{\textbf{Lokalnie}} & \multicolumn{2}{c|}{\textbf{Internet}} & \multicolumn{2}{c|}{\textbf{Suma}} \bigstrut                                                                    \\
+		\cline{2-7}                             & \textbf{down}                          & \textbf{up}                            & \textbf{down}                                & \textbf{up}     & \textbf{down}   & \textbf{up} \bigstrut[t]     \\
+		                                        & \textbf{[kb/s]}                        & \textbf{[kb/s]}                        & \textbf{[kb/s]}                              & \textbf{[kb/s]} & \textbf{[kb/s]} & \textbf{[kb/s]} \bigstrut[b] \\\hline
+		\textbf{Programiści}                    & 760                                    & 820                                    & 112                                          & 53              & 872             & 873 \bigstrut                \\\hline
+		\textbf{Testerzy}                       & 1160                                   & 580                                    & 55                                           & 55              & 1215            & 635 \bigstrut                \\\hline
+		\textbf{Projektanci}                    & 360                                    & 390                                    & 145                                          & 56              & 505             & 446 \bigstrut                \\\hline
+		\textbf{Marketing}                      & 160                                    & 340                                    & 135                                          & 85              & 295             & 425 \bigstrut                \\\hline
+		\textbf{Księgowość}                     & 460                                    & 380                                    & 95                                           & 70              & 555             & 450 \bigstrut                \\\hline
+		\textbf{WiFi}                           & 160                                    & 620                                    & 202                                          & 99              & 362             & 719 \bigstrut                \\\hline
+	\end{tabular}%
+	\label{tab:user_usage}%
 \end{table}%
-\subsection{Aplikacje}
-
+\textbf{Przykład obliczeń:}\\
+Wyliczenia na podstawie grupy roboczej \emph{Programiści} z \underline{\hyperref[tab:apps]{tabeli 7}}:
+\begin{itemize}
+	\item Pobieranie z Internetu: $0+0+20+77+15=112[kb/s]$
+	\item Wysyłanie do Internetu: $0+0+20+18+15=53[kb/s]$
+	\item Pobieranie lokalne: $0+750+10=760[kb/s]$
+	\item Wysyłanie lokalne:$0+700+120=820[kb/s]$
+	\item Suma pobierania: $112+760=872[kb/s]$
+	\item Suma wysyłania: $53+820=873[kb/s]$
+\end{itemize}
+Grupy o największym korzystaniu z sieci to:
+\begin{itemize}
+	\item Testerzy (Pobieranie) - $1215[kb/s] \approx 1.19[Mb/s]$
+	\item Programiści (Wysyłanie) - $873[kb/s] \approx 0.85[Mb/s]$ %(po zaokrągleniu w górę $0.86[Mb/s]$ aby nie było straty na łączu)
+\end{itemize}
+Aby uzyskać szacowany ruch generowany przez pracowników danego piętra,
+należy pomnożyć ruch przypadający na jednego pracownika z
+\underline{\hyperref[tab:user_usage]{tabeli 8}} przez liczbę pracowników danej grupy roboczej na określonym piętrze (\underline{\hyperref[tab:groups]{tabela 1}})
+% \subsubsection{Szacowany pobór danych}
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
 \begin{table}[H]
 	\centering
-	\caption{Wymagania dotyczące przepływu przez aplikacje}
-	\resizebox{\textwidth}{!}{
-		\begin{tabular}{|c|c|c|c|c|c|}\hline
-			\multicolumn{6}{|c|}{\textbf{Transfer z/do Internetu (down \textbackslash{} up) [kb/s]}} \bigstrut                                                                               \\\hline
-			\textbf{\backslashbox{Grupa rob.}{Aplikacja}} & \textbf{Przeglądarka} & \textbf{Wideokonferencja} & \textbf{VoIP}        & \textbf{Klient\_FTP} & \textbf{Komunikator} \bigstrut \\\hline
-			\textbf{Programiści}                          & 0\textbackslash{}0    & 0\textbackslash{}0        & 20\textbackslash{}20 & 77\textbackslash{}18 & 15\textbackslash{}15 \bigstrut \\\hline
-			\textbf{Testerzy}                             & 0\textbackslash{}0    & 40\textbackslash{}40      & 0\textbackslash{}0   & 0\textbackslash{}0   & 15\textbackslash{}15 \bigstrut \\\hline
-			\textbf{Projektanci}                          & 65\textbackslash{}10  & 0\textbackslash{}0        & 20\textbackslash{}20 & 45\textbackslash{}11 & 15\textbackslash{}15 \bigstrut \\\hline
-			\textbf{Marketing}                            & 60\textbackslash{}10  & 40\textbackslash{}40      & 20\textbackslash{}20 & 0\textbackslash{}0   & 15\textbackslash{}15 \bigstrut \\\hline
-			\textbf{Księgowość}                           & 35\textbackslash{}10  & 40\textbackslash{}40      & 20\textbackslash{}20 & 0\textbackslash{}0   & 0\textbackslash{}0 \bigstrut   \\\hline
-			\textbf{WiFi}                                 & 78\textbackslash{}10  & 40\textbackslash{}40      & 20\textbackslash{}20 & 49\textbackslash{}14 & 15\textbackslash{}15 \bigstrut \\\hline
-		\end{tabular}%
-	}
-	\label{tab:apps}%
+	\caption{Szacowany pobór danych}
+	\vspace{2mm}
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		\multirow{2}[4]{*}{\textbf{Użytkownik}} & \multicolumn{2}{c|}{\textbf{Budynek 1}} & \multicolumn{3}{c|}{\textbf{Budynek 2}} \bigstrut                                                                       \\
+		\cline{2-6}                             & \textbf{Piętro 1}                       & \textbf{Piętro 2}                                 & \textbf{Piętro 1} & \textbf{Piętro 2} & \textbf{Piętro 3} \bigstrut \\
+		\hline
+		\textbf{Programiści}                    & 19184                                   & 5232                                              & 1744              & 16568             & 31392 \bigstrut             \\
+		\hline
+		\textbf{Testerzy}                       & 25515                                   & 37665                                             & 7290              & 15795             & 40095 \bigstrut             \\
+		\hline
+		\textbf{Projektanci}                    & 3030                                    & 15655                                             & 9090              & 505               & 7070 \bigstrut              \\
+		\hline
+		\textbf{Marketing}                      & 4720                                    & 8260                                              & 2065              & 885               & 5015 \bigstrut              \\
+		\hline
+		\textbf{Księgowość}                     & 17760                                   & 7770                                              & 17760             & 11655             & 8325 \bigstrut              \\
+		\hline
+		\textbf{Suma}                           & 70209                                   & 74582                                             & 37949             & 45408             & 91897 \bigstrut             \\
+		\hline
+	\end{tabular}%
+	\label{tab:user_download}%
 \end{table}%
-\subsection{Punkty dystrybucyjne}
 
+% Table generated by Excel2LaTeX from sheet 'Sheet1'
 \begin{table}[H]
 	\centering
-	\caption{Punkty dystrybucyjne}
-	\resizebox{\textwidth}{!}{
-	  \begin{tabular}{|c|c|c|}
-	  \hline
-	  \multicolumn{3}{|c|}{\textbf{Punkty dystrybucyjne}} \bigstrut\\
-	  \hline
-	  \textbf{Oznaczenie} & \textbf{Lokalizacja} & \textbf{Podłączone punkty abonenckie} \bigstrut\\
-	  \hline
-	  \textbf{MDF} & Bud. 2, Piętro 2 & Bud. 2, Piętro 2,1, \bigstrut\\
-	  \hline
-	  \textbf{IDF1} & Bud. 2, Piętro 3 & Bud. 2, Piętro 3, \bigstrut\\
-	  \hline
-	  \textbf{IDF2} & Bud. 1, Piętro 1 & Bud. 1 \bigstrut\\
-	  \hline
-	  \end{tabular}%
-	}
-	\label{tab:distribution}%
-  \end{table}%
+	\caption{Szacowany przesył danych
+		\vspace{2mm}}
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		\multirow{2}[4]{*}{\textbf{Użytkownik}} & \multicolumn{2}{c|}{\textbf{Budynek 1}} & \multicolumn{3}{c|}{\textbf{Budynek 2}} \bigstrut                                                                       \\
+		\cline{2-6}                             & \textbf{Piętro 1}                       & \textbf{Piętro 2}                                 & \textbf{Piętro 1} & \textbf{Piętro 2} & \textbf{Piętro 3} \bigstrut \\
+		\hline
+		\textbf{Programiści}                    & 19206                                   & 5238                                              & 1746              & 16587             & 31428 \bigstrut             \\
+		\hline
+		\textbf{Testerzy}                       & 13335                                   & 19685                                             & 3810              & 8255              & 20955 \bigstrut             \\
+		\hline
+		\textbf{Projektanci}                    & 2676                                    & 13826                                             & 8028              & 446               & 6244 \bigstrut              \\
+		\hline
+		\textbf{Marketing}                      & 6800                                    & 11900                                             & 2975              & 1275              & 7225 \bigstrut              \\
+		\hline
+		\textbf{Księgowość}                     & 14400                                   & 6300                                              & 14400             & 9450              & 6750 \bigstrut              \\
+		\hline
+		\textbf{Suma}                           & 56417                                   & 56949                                             & 30959             & 36013             & 72602 \bigstrut             \\
+		\hline
+	\end{tabular}%
+	\label{tab:user_upload}%
+\end{table}%
+\textbf{Przykład obliczeń:}\\
+Wyliczenia na podstawie grupy roboczej \emph{Programiści} z \underline{\hyperref[tab:user_usage]{tabeli 8}} oraz \underline{\hyperref[tab:groups]{tabeli 1}}:\\
+Dla piętra 1:
+\begin{itemize}
+	\item Pobieranie: $872*22=19184[kb/s]\approx 18.74[Mb/s]$
+	\item Wysyłanie: $873*22=19206[kb/s]\approx 18.76[Mb/s]$
+\end{itemize}
+Według przeprowadzonych obliczeń najbardziej wymagające jest \textbf{Piętro 3 w budynku 2}.
+\begin{itemize}
+	\item Pobieranie: $91897[kb/s]\approx89.75[Mb/s]$
+	\item Wysyłanie: $72602[kb/s]\approx70.90[Mb/s]$
+\end{itemize}
 
-\section{Analiza potrzeb użytkowników}
-\subsection{Pracownicy oraz wykorzystywane oprogramowanie}
-\subsection{Łącza szkieletowe}
-\subsection{Łącza do serwerów i drukarek}
 \subsection{Łącza do internetu}
 \section{Założenia projektowe}
 \subsection{Sieć LAN}
