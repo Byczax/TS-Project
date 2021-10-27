@@ -592,6 +592,61 @@ Dla zabezpieczenia sieci nakładamy na nią następujące ograniczenia:
 
 \section{Projekt sieci}
 \subsection{Projekt logiczny sieci wraz z opisem koncepcji rozwiązania i uzasadnieniem}
+\begin{figure}[H]
+   \centering
+   \resizebox*{0.9\textwidth}{!}{
+	  \includegraphics{TS_Network_Logic.drawio.png}
+   }
+\end{figure}
+\cleardoublepage
+\subsubsection{Podział na sieci VLAN}
+\begin{enumerate}
+	\item VLAN 1 - Programiści
+	\item VLAN 2 - Testerzy
+	\item VLAN 3 - Projektanci
+	\item VLAN 4 - Marketing
+	\item VLAN 5 - Księgowość
+	\item VLAN 6 - WiFi
+	\item VLAN 7 - Drukarki
+	\item VLAN 8 - Serwery FTP oraz WWW
+\end{enumerate}
+\subsubsection{Opis oznaczeń urządzeń sieciowych}
+\textbf{DF/BXPY/T/N}
+\begin{itemize}
+	\item DF - Punkt dystrybucyjny
+	\item BXPY - Budynek X i piętro Y
+	\item T - typ urządzenia
+	\begin{itemize}
+		\item R - Router
+		\item S2 - Switch warstwy drugiej
+		\item S3 - Switch warstwy trzeciej
+		\item A - Access point (punkt dostępu WiFi)
+	\end{itemize}
+	\item N - Numer urządzenia sieciowego
+\end{itemize}
+\subsubsection{Przykładowy odczyt kodu}
+\emph{(Kod czytamy od tyłu)}\\
+\textbf{MDF/B2P2/S2/1} - Switch nr.1 warstwy drugiej znajdujący się na piętrze drugim w budynku drugim podłączony do punktu dystrybucyjnego MDF.
+\subsubsection{Opis oznaczeń urządzeń końcowych}
+\textbf{XXX/BXPY/N}
+\begin{itemize}
+    \item XXX
+        \subitem ITE - komputer Programisty
+        \subitem TES - komputer Testera
+        \subitem PRO - komputer Projektanta
+        \subitem MAR - komputer Działu Marketingu
+        \subitem KSI - komputer Księgowości
+        \subitem DRU - Drukarka
+    \item BXPY - budynek nr X i piętro nr Y
+    \item N - numer urządzenia końcowego
+\end{itemize}
 
 \subsection{Wybór urządzeń sieciowych}
+\subsubsection{Urządzenia aktywne}
+\begin{itemize}
+	\item Router
+	\item Przełącznik warstwy 3
+	\item Przełącznik warstwy 2
+	\item Punkt dostępu
+\end{itemize}
 \end{document}
