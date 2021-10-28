@@ -644,9 +644,41 @@ Dla zabezpieczenia sieci nakładamy na nią następujące ograniczenia:
 \subsection{Wybór urządzeń sieciowych}
 \subsubsection{Urządzenia aktywne}
 \begin{itemize}
-	\item Router
-	\item Przełącznik warstwy 3
-	\item Przełącznik warstwy 2
-	\item Punkt dostępu
+	\item Router - Cisco ISR4221/K9
+	\item Przełącznik warstwy 3 (MDF) - Cisco Catalyst 2960X-24TS-LL
+	\item przełącznik warstwy 3 (IDF-y) - Cisco SF350-48
+	\item Przełącznik warstwy 2 - Cisco SF220-48
+	\item Punkt dostępu - TP-LINK EAP265 HD
 \end{itemize}
+W naszym projekcie wybraliśmy \textbf{router Cisco ISR4221/K9} ze względu na dobry stosunek 
+ceny do jakości. \\
+
+Do obsługi ruchu pomiędzy budynkami oraz połączenia routera do reszty sieci zostaną użyte 
+\textbf{przełącznik Cisco WS-C2960X-24TS-LL} do głównego połączenia oraz \textbf{przełączniki Cisco SF350-48}. 
+Wybrane przełączniki będą używane jako przełączniki warstwy 3, główny przełącznik posiada porty Gigabitowe.
+Dodatkowo są one w pełni zarządzalne i dysponują możliwością tworzenia wirtualnych sieci.\\
+
+Do obsługi ruchu w budynkach zostaną użyte \textbf{przełączniki Cisco Cisco SF220-48}.
+Wybrane przełączniki mają 48 portów Fast Ethernet.\\
+
+Wybrane przez nas \textbf{access pointy TP-LINK EAP265 HD} charakteryzują się dobrym stosunkiem ceny 
+do jakości oraz działają na częstotliwościach 5 GHz i 2,4 GHz.
+
+
+% Router - https://www.cisco.com/c/en/us/support/routers/4221-integrated-services-router-isr/model.html
+% Price - 2 765,51 zł netto  3 401,58 zł brutto
+
+% layer 3 - https://www.cisco.com/c/en/us/support/switches/catalyst-2960x-24ts-ll-switch/model.html
+% Price -  4 220,36 zł netto  5 191,04 zł brutto 
+
+% layer 3 weaker - https://www.cisco.com/c/en/us/support/switches/sf350-48-48-port-10-100-managed-switch/model.html
+% Price -  1 714,06 zł netto 2 108,29 zł brutto 
+
+% layer 2 - https://www.cisco.com/c/en/us/support/switches/sf220-48-48-port-10-100-smart-plus-switch/model.html
+% Price -  970,02 zł netto 1 193,12 zł brutto 
+
+% Access point - https://www.senetic.pl/product/EAP265_HD
+% Price - 475,50 zł netto 584,87 zł brutto
+
+% Even cheaper alternatives: https://mikrotik.com/
 \end{document}
