@@ -564,6 +564,12 @@ Zakładamy, że sieć bezprzewodowa ma obsłużyć jednocześnie
 wszystkie budynki firmy.
 Serwery zostaną umieszczone na tym samym piętrze co MDF.
 
+Na podstawie tabeli \ref{tab:distribution} możemy oszacować wymaganą przepustowość, która wynosi:
+\begin{itemize}
+	\item Pobór danych - 312.54 [Mb/s]
+	\item Wysył danych - 247.01 [Mb/s]
+\end{itemize}
+
 \subsection{Łącze do internetu}
 
 Na podstawie wcześniejszych obliczeń i wzięcia pod uwagę
@@ -834,7 +840,7 @@ W razie potrzeb, u każdego dostawcy, możliwe jest zakupienie dodatkowych usłu
 \end{figure}
 \subsection{Analiza bezpieczeństwa i niezawodności sieci}
 \begin{itemize}
-	\item Sieć WiFi jest jednym z najbardziej narażonych na atak elementów sieci, dlatego będzie ona szyfrowana za pomocą WPA2.
+	\item Sieć WiFi jest jednym z najbardziej narażonych na atak elementów sieci, dlatego będzie ona szyfrowana za pomocą WPA2-PSK.
 	\item W sieci zastosowaliśmy VLANy, aby umożliwić logiczne pogrupowanie stacji roboczych.
 	\item Każda stacja robocza będzie zabezpieczona firewallem oraz antywirusem.
 	\item W przypadku awarii jednego z dostawców Internetu, możemy przekierować ruch na dwóch pozostałych dostawców, co pozwala na stały i bezawaryjny dostęp do Internetu.
@@ -855,10 +861,10 @@ W razie potrzeb, u każdego dostawcy, możliwe jest zakupienie dodatkowych usłu
 		\multicolumn{1}{|l|}{Cisco SF350-48}               & \multicolumn{1}{c|}{2}                 & $1,714.06$            & $3,428.12$                                   \\ \hline
 		\multicolumn{1}{|l|}{Cisco SF220-48}               & \multicolumn{1}{c|}{20}                & $970.02$              & $19,400.4$                                   \\ \hline
 		\multicolumn{1}{|l|}{TP-LINK EAP265 HD}            & \multicolumn{1}{c|}{6}                 & $475.50$              & $2,853$                                      \\ \hline
-		\multicolumn{1}{|l|}{Internet Netia}               & \multicolumn{1}{l|}{-}                 & $350.50$ [msc]        & $4,206,00$ [rok]                             \\ \hline
-		\multicolumn{1}{|l|}{Instalacja Netia}             & \multicolumn{1}{l|}{1}                 & $170.73$              & $170.73$                                     \\ \hline
-		\multicolumn{1}{|l|}{Internet UPC}                 & \multicolumn{1}{l|}{-}                 & $250$ [msc]           & $3,000$ [rok]                                \\ \hline
-		\multicolumn{1}{|l|}{Instalacja UPC}               & \multicolumn{1}{l|}{1}                 & $399$                 & $399$                                        \\ \hline
+		\multicolumn{1}{|l|}{Internet Netia}               & \multicolumn{1}{c|}{-}                 & $350.50$ [msc]        & $4,206,00$ [rok]                             \\ \hline
+		\multicolumn{1}{|l|}{Instalacja Netia}             & \multicolumn{1}{c|}{1}                 & $170.73$              & $170.73$                                     \\ \hline
+		\multicolumn{1}{|l|}{Internet UPC}                 & \multicolumn{1}{c|}{-}                 & $250$ [msc]           & $3,000$ [rok]                                \\ \hline
+		\multicolumn{1}{|l|}{Instalacja UPC}               & \multicolumn{1}{c|}{1}                 & $399$                 & $399$                                        \\ \hline
 		\textbf{Suma}                                      &                                        & \multicolumn{1}{l|}{} & \multicolumn{1}{r|}{\textbf{$43,699.42$ zł}} \\ \hline
 	\end{tabular}
 \end{table}
@@ -869,7 +875,7 @@ W razie potrzeb, u każdego dostawcy, możliwe jest zakupienie dodatkowych usłu
 	\begin{tabular}{|lc|c|}
 		\hline
 		\multicolumn{1}{|c|}{\textbf{Nazwa}} & \textbf{Cena [zł/msc]} & \textbf{Łącznie [zł/rok]} \\ \hline
-		\multicolumn{1}{|l|}{Internet Netia} & $350.50$               & $4,206,00$                \\ \hline
+		\multicolumn{1}{|l|}{Internet Netia} & $350.50$               & $4,206.00$                \\ \hline
 		\multicolumn{1}{|l|}{Internet UPC}   & $250$                  & $3,000$                   \\ \hline
 		\textbf{Suma}                        & \multicolumn{1}{l|}{}  & \textbf{$7,206$ zł}       \\ \hline
 	\end{tabular}
